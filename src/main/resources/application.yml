@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: Aula-Alura
+
+
+  r2dbc:
+    url:  "r2dbc:postgresql://localhost/aula_alura_codetchelo"
+    username: "postgres"
+    password: "senha"
+
+  flyway:
+    url:  "jdbc:postgresql://localhost/aula_alura_codetchelo"
+    user: "postgres"
+    password: "senha"
+
+  deepl:
+    api_kei: ${API_kEY}

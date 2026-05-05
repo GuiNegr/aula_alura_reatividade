@@ -5,6 +5,7 @@ import br.com.reatividade.Aula.Alura.model.entity.dto.EventoDto;
 import br.com.reatividade.Aula.Alura.model.enums.LANGUAGE;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -32,12 +33,19 @@ public class TranslateUtils {
         req.add("text",evento.descricao());
         req.add("target_lang", LANGUAGE.valueOf(idioma).getLanguage());
 
-        String apiDeep = "DeepL-Auth-Key " + apikey;
 
         return webclient.post()
                 .header("Authorization", "DeepL-Auth-Key " + apikey)
                 .body(BodyInserters.fromFormData(req))
-                .retrieve().bodyToMono(Traducao.class)
+                .retrieve().onStatus(
+                        HttpStatusCode::isError,
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(body -> Mono.error(
+                                        new RuntimeException(
+                                                "Erro DeepL: " + response.statusCode() + " - " + body
+                                        )
+                                ))
+                ).bodyToMono(Traducao.class)
                 .map(Traducao::textTransleted).onErrorMap(error ->
                 new Exception(error.getLocalizedMessage())
         );

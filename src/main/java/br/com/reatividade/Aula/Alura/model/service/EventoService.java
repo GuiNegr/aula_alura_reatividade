@@ -34,7 +34,8 @@ public class EventoService {
 
     public Flux<EventoDto> gettAll(){
         //estudar sobre esse map e como funciona
-        return repository.findAll().map(EventoDto::toDTO);
+        return repository.findAll()
+                .map(EventoDto::toDTO);
     }
 
     public Mono<EventoDto> getByID(Long id){

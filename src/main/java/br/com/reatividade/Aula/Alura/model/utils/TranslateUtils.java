@@ -4,16 +4,12 @@ import br.com.reatividade.Aula.Alura.model.entity.Traducao;
 import br.com.reatividade.Aula.Alura.model.entity.dto.EventoDto;
 import br.com.reatividade.Aula.Alura.model.enums.LANGUAGE;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 

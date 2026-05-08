@@ -3,6 +3,7 @@ package br.com.reatividade.Aula.Alura.controller;
 import br.com.reatividade.Aula.Alura.model.entity.dto.EventoDto;
 import br.com.reatividade.Aula.Alura.model.service.EventoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -44,6 +45,7 @@ public class EventoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<EventoDto> create(@RequestBody EventoDto eventoDto){
         EventoController.log.info("Create a new evento");
         return serviceEvento.create(eventoDto).doOnSuccess(eventoSink::tryEmitNext);

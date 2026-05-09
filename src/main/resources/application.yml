@@ -15,3 +15,6 @@ spring:
 
   deepl:
     api_kei: ${API_kEY}
+  threads:
+    virtual:
+      enabled: true
